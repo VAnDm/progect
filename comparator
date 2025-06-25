@@ -37,7 +37,7 @@ def comparator(imagepath1, imagepath2):
 if __name__ == '__main__':
     directory1 = './datasets/img_align_celeba (2)/img_align_celeba/'
     directory2 = './datasets/img_align_celeba (3)/img_align_celeba/'
-    for i in range(88067, 202600):
+    for i in range(1, 202600):
         imgname = f"{'0' * (6 - len(str(i)))}{str(i)}"
         file1 = f"{directory1}{imgname}.jpg"
         file2 = f"{directory2}{imgname}.jpg"
