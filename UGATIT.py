@@ -168,8 +168,8 @@ class AnimeFaceDataset(Dataset):
 # --- 5. Training Loop ---
 if __name__ == '__main__':
     # Parameters
-    celeba_root = r'C:\Users\Nickola\PycharmProjects\pythonProject\datasets\img_align_celeba\img_align_celeba'
-    anime_root = r'C:\Users\Nickola\PycharmProjects\pythonProject\datasets\images'
+    celeba_root = 'datasets/img_align_celeba (2)/img_align_celeba'
+    anime_root = 'datasets/images2'
     image_size, batch_size, num_epochs, save_interval, num_visualizations = 128, 8, 100, 10, 4
 
     # Data Transformations
