@@ -1,0 +1,54 @@
+import cv2
+import numpy as np
+import mediapipe as mp
+import os
+
+def comparator(imagepath1, imagepath2):
+    """
+    Сравнивает исходную картинку и вырезанное лицо между собой попиксельно
+    """
+    try:
+        img1 = cv2.imread(imagepath1)
+        img2 = cv2.imread(imagepath2)
+        if img1 is None or img2 is None:
+            print(f"Не удалось загрузить изображение")
+            return None
+        sh1 = img1.shape
+        sh2 = img2.shape
+        c = 0
+        if sh1 == sh2:
+            for i in range(sh1[0]):
+                for j in range(sh1[1]):
+                    dx = abs(int(img1[i][j][0]) - int(img2[i][j][0]))
+                    dy = abs(int(img1[i][j][1]) - int(img2[i][j][1]))
+                    dz = abs(int(img1[i][j][2]) - int(img2[i][j][2]))
+                    rho = dx + dy + dz
+                    if rho == 0:
+                        c += 1
+        if c > 13000:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f"Произошла ошибка при обработке: {e}")
+        return None
+
+        
+if __name__ == '__main__':
+    directory1 = './datasets/img_align_celeba (2)/img_align_celeba/'
+    directory2 = './datasets/img_align_celeba (3)/img_align_celeba/'
+    for i in range(88067, 202600):
+        imgname = f"{'0' * (6 - len(str(i)))}{str(i)}"
+        file1 = f"{directory1}{imgname}.jpg"
+        file2 = f"{directory2}{imgname}.jpg"
+        if os.path.exists(file1) and os.path.exists(file2):
+            flag = comparator(file1, file2)
+            if not flag:
+                os.remove(file2)
+            else:
+                print(i)
+        else:
+            if os.path.exists(file2):
+                os.remove(file2)
+        if i % 1000 == 0:
+            print(f"Прошло {i}")
